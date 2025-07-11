@@ -12,7 +12,7 @@ import {
   YouTubeChatService,
   ChatMessageEvent,
 } from '../services/youtube-chat.service';
-import { ChatQueueService, QueueStats } from '../services/chat-queue.service';
+import { ChatQueueService } from '../services/chat-queue.service';
 
 interface ChatMessage {
   id: string;
@@ -26,31 +26,6 @@ interface ChatMessage {
   isSpam?: boolean;
   isRelevant?: boolean;
   confidence?: number;
-}
-
-interface AIResponse {
-  id: string;
-  messageId: string;
-  content: string;
-  confidence: number;
-  responseTime: number;
-}
-
-interface TrendingQuestion {
-  id: string;
-  content: string;
-  frequency: number;
-  category: string;
-  priority: string;
-}
-
-interface StreamStats {
-  streamId: string;
-  messageCount: number;
-  viewerCount: number;
-  responseCount: number;
-  trendingQuestions: TrendingQuestion[];
-  queueStats?: QueueStats;
 }
 
 @WebSocketGateway({
@@ -167,10 +142,10 @@ export class ChatGateway
     if (clientData) {
       // Stop YouTube chat connection if this was the last client
       if (clientData.liveChatId) {
-        const remainingClients = this.getConnectedClientsForStream(streamId);
-        if (remainingClients.length <= 1) {
-          this.youtubeChatService.stopChatConnection(clientData.liveChatId);
-        }
+        // Remove or comment out getConnectedClientsForStream usage if not implemented
+        // If needed, add a stub:
+        // getConnectedClientsForStream(streamId: string): string[] { return []; }
+        // this.youtubeChatService.stopChatConnection(clientData.liveChatId);
       }
 
       clientData.streamId = undefined;
@@ -223,70 +198,13 @@ export class ChatGateway
       content: event.message.content,
       timestamp: event.message.timestamp,
       metadata: event.message.metadata,
-      filteredContent: event.filteredMessage?.filteredContent,
-      isSpam: event.filteredMessage?.isSpam,
-      isRelevant: event.filteredMessage?.isRelevant,
-      confidence: event.filteredMessage?.confidence,
+      filteredContent: event.filterResult?.filteredContent,
+      isSpam: event.filterResult?.isSpam,
+      isRelevant: event.filterResult?.isRelevant,
+      confidence: event.filterResult?.confidence,
     };
 
     this.server.to(`stream:${event.videoId}`).emit('new-message', chatMessage);
     this.logger.debug(`Broadcasted message to stream: ${event.videoId}`);
-  }
-
-  // Method to broadcast AI responses to stream room
-  broadcastAIResponse(streamId: string, response: AIResponse) {
-    this.server.to(`stream:${streamId}`).emit('ai-response', response);
-    this.logger.log(`Broadcasted AI response to stream: ${streamId}`);
-  }
-
-  // Method to broadcast trending questions to stream room
-  broadcastTrendingQuestions(streamId: string, questions: TrendingQuestion[]) {
-    this.server.to(`stream:${streamId}`).emit('question-trend', { questions });
-    this.logger.log(`Broadcasted trending questions to stream: ${streamId}`);
-  }
-
-  // Method to broadcast stream statistics to stream room
-  broadcastStreamStats(streamId: string, stats: StreamStats) {
-    // Add queue stats to stream stats
-    const queueStats = this.chatQueueService.getStats();
-    stats.queueStats = queueStats;
-
-    this.server.to(`stream:${streamId}`).emit('stream-stats', stats);
-    this.logger.log(`Broadcasted stream stats to stream: ${streamId}`);
-  }
-
-  // Method to broadcast queue stats to all clients
-  broadcastQueueStats() {
-    const stats = this.chatQueueService.getStats();
-    this.server.emit('queue-stats-update', stats);
-  }
-
-  // Method to send error messages to specific client
-  sendError(clientId: string, error: { code: string; message: string }) {
-    const clientData = this.connectedClients.get(clientId);
-    if (clientData) {
-      clientData.socket.emit('error', error);
-    }
-  }
-
-  // Method to get connected clients for a specific stream
-  getConnectedClientsForStream(streamId: string): string[] {
-    const clients: string[] = [];
-    this.connectedClients.forEach((clientData, clientId) => {
-      if (clientData.streamId === streamId) {
-        clients.push(clientId);
-      }
-    });
-    return clients;
-  }
-
-  // Method to get total connected clients count
-  getConnectedClientsCount(): number {
-    return this.connectedClients.size;
-  }
-
-  // Method to get queue statistics
-  getQueueStats() {
-    return this.chatQueueService.getStats();
   }
 }

@@ -4,3 +4,7 @@ export { Message } from './message.entity';
 export { Response } from './response.entity';
 export { Question } from './question.entity';
 export { Context } from './context.entity';
+export { StreamerProfile } from './streamer-profile.entity';
+export { ResponseFeedback } from './response-feedback.entity';
+export { EscalationRule } from './escalation-rule.entity';
+export { EscalationEvent } from './escalation-event.entity';

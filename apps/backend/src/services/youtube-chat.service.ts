@@ -58,7 +58,11 @@ export class YouTubeChatService {
 
     // Listen for processed messages from queue
     this.chatQueueService.onMessageProcessed((data) => {
-      this.handleProcessedMessage(data);
+      this.handleProcessedMessage({
+        message: data.message,
+        filterResult: data.filteredMessage,
+        priority: data.priority,
+      });
     });
   }
 
@@ -187,7 +191,9 @@ export class YouTubeChatService {
           // Process messages through queue pipeline
           for (const message of result.messages) {
             // Filter the message
-            const filterResult = this.chatFilterService.filterMessage(message);
+            const filterResult = this.chatFilterService.filterMessage(
+              message.content,
+            );
 
             // Determine priority based on message characteristics
             const priority = this.determineMessagePriority(filterResult);
@@ -255,8 +261,8 @@ export class YouTubeChatService {
   ): 'high' | 'normal' | 'low' {
     // High priority: Messages from moderators, owners, or with high confidence
     if (
-      (filterResult.metadata as any)?.isModerator ||
-      (filterResult.metadata as any)?.isOwner ||
+      filterResult.metadata?.isModerator ||
+      filterResult.metadata?.isOwner ||
       filterResult.confidence > 0.8
     ) {
       return 'high';
@@ -312,7 +318,7 @@ export class YouTubeChatService {
 
   private startHealthCheck(): void {
     setInterval(() => {
-      for (const [liveChatId, connection] of this.activeConnections) {
+      for (const [liveChatId, connection] of this.activeConnections.entries()) {
         const stats = this.getConnectionStats(liveChatId);
         if (stats && !stats.isHealthy) {
           this.logger.warn(

@@ -1,77 +1,91 @@
-import { Module, NestModule } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { DatabaseModule } from './database/database.module';
-import { ChatGateway } from './gateways/chat.gateway';
-import { DashboardGateway } from './gateways/dashboard.gateway';
-import { JwtAuthModule } from './auth/jwt.module';
-import { DatabaseService } from './services/database.service';
+import { ConfigModule } from '@nestjs/config';
 import { YouTubeService } from './services/youtube.service';
-import { YouTubeController } from './controllers/youtube.controller';
 import { YouTubeChatService } from './services/youtube-chat.service';
-import { YouTubeChatController } from './controllers/youtube-chat.controller';
 import { ChatFilterService } from './services/chat-filter.service';
-import { ChatFilterController } from './controllers/chat-filter.controller';
 import { ChatQueueService } from './services/chat-queue.service';
-import { ChatQueueController } from './controllers/chat-queue.controller';
+import { ChatGateway } from './gateways/chat.gateway';
 import { MessageStorageService } from './services/message-storage.service';
-import { MessageStorageController } from './controllers/message-storage.controller';
-import { OpenAIService } from './services/openai.service';
-import { OpenAIController } from './controllers/openai.controller';
 import { AIResponseService } from './services/ai-response.service';
-import { StreamerProfileController } from './controllers/streamer-profile.controller';
-import { Message } from './entities/message.entity';
-import { Response } from './entities/response.entity';
-import { StreamerProfile } from './entities/streamer-profile.entity';
-import configuration from './config/configuration';
+import { OpenAIService } from './services/openai.service';
 import { StreamerProfileService } from './services/streamer-profile.service';
 import { ResponseCacheService } from './services/response-cache.service';
-import { ResponseCacheController } from './controllers/response-cache.controller';
 import { ResponseFrequencyLimiterService } from './services/response-frequency-limiter.service';
-import { FrequencyLimiterController } from './controllers/frequency-limiter.controller';
+import { ResponseQualityService } from './services/response-quality.service';
+import { EscalationService } from './services/escalation.service';
+import {
+  Streamer,
+  Stream,
+  Message,
+  Response,
+  Question,
+  Context,
+  StreamerProfile,
+  ResponseFeedback,
+  EscalationRule,
+  EscalationEvent,
+} from './entities';
+import { MessageStorageController } from './controllers/message-storage.controller';
+import { ResponseQualityController } from './controllers/response-quality.controller';
+import { EscalationController } from './controllers/escalation.controller';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: '.env',
-      load: [configuration],
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST || 'localhost',
+      port: parseInt(process.env.DB_PORT || '5432'),
+      username: process.env.DB_USERNAME || 'postgres',
+      password: process.env.DB_PASSWORD || 'password',
+      database: process.env.DB_DATABASE || 'streamate',
+      entities: [
+        Streamer,
+        Stream,
+        Message,
+        Response,
+        Question,
+        Context,
+        StreamerProfile,
+        ResponseFeedback,
+        EscalationRule,
+        EscalationEvent,
+      ],
+      synchronize: true,
     }),
-    DatabaseModule,
-    TypeOrmModule.forFeature([Message, Response, StreamerProfile]),
-    JwtAuthModule,
+    TypeOrmModule.forFeature([
+      Streamer,
+      Stream,
+      Message,
+      Response,
+      Question,
+      Context,
+      StreamerProfile,
+      ResponseFeedback,
+      EscalationRule,
+      EscalationEvent,
+    ]),
   ],
   controllers: [
-    AppController,
-    YouTubeController,
-    YouTubeChatController,
-    ChatFilterController,
-    ChatQueueController,
     MessageStorageController,
-    OpenAIController,
-    StreamerProfileController,
-    ResponseCacheController,
-    FrequencyLimiterController,
+    ResponseQualityController,
+    EscalationController,
   ],
   providers: [
-    ChatGateway,
-    DashboardGateway,
-    DatabaseService,
     YouTubeService,
     YouTubeChatService,
     ChatFilterService,
     ChatQueueService,
+    ChatGateway,
     MessageStorageService,
-    OpenAIService,
     AIResponseService,
+    OpenAIService,
     StreamerProfileService,
     ResponseCacheService,
     ResponseFrequencyLimiterService,
+    ResponseQualityService,
+    EscalationService,
   ],
 })
-export class AppModule implements NestModule {
-  configure() {
-    // Temporarily disabled middleware to debug 500 error
-  }
-}
+export class AppModule {}

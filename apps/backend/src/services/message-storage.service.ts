@@ -9,7 +9,14 @@ export interface MessageQuery {
   streamId?: string;
   authorId?: string;
   platformMessageId?: string;
+  authorName?: string;
+  processingStatus?: string;
   requiresResponse?: boolean;
+  isEscalated?: boolean;
+  startDate?: Date;
+  endDate?: Date;
+  orderBy?: string;
+  orderDirection?: 'ASC' | 'DESC';
   limit?: number;
   offset?: number;
 }
@@ -93,14 +100,11 @@ export class MessageStorageService {
         content: sanitizedContent,
         requiresResponse: analysis.requiresResponse,
         metadata: {
-          ...messageData.metadata,
           isModerator: messageData.metadata?.isModerator || false,
           isSubscriber: messageData.metadata?.isSubscriber || false,
-          userBadges: messageData.metadata?.userBadges || [],
+          badges: messageData.metadata?.userBadges || [],
           emotes: messageData.metadata?.emotes || [],
-          filterFlags: filterResult.flags,
-          originalLength: messageData.content.length,
-          filteredLength: sanitizedContent.length,
+          timestamp: new Date(),
         },
       });
 
@@ -384,7 +388,11 @@ export class MessageStorageService {
     messageId: string,
     aiContent: string,
     model: string,
-    usage: any,
+    usage: {
+      promptTokens?: number;
+      completionTokens?: number;
+      totalTokens?: number;
+    },
   ): Promise<AIResponse> {
     const message = await this.messageRepository.findOne({
       where: { id: messageId },
@@ -415,6 +423,24 @@ export class MessageStorageService {
       order: { createdAt: 'DESC' },
       take: limit,
     });
+  }
+
+  async getStream(streamId: string): Promise<{ streamerId: string } | null> {
+    try {
+      const message = await this.messageRepository.findOne({
+        where: { streamId },
+        relations: ['stream'],
+      });
+
+      if (message?.stream) {
+        return { streamerId: message.stream.streamerId };
+      }
+
+      return null;
+    } catch (error) {
+      this.logger.error(`Error retrieving stream ${streamId}:`, error);
+      return null;
+    }
   }
 
   private analyzeMessage(content: string): {

@@ -4,6 +4,7 @@ import { YouTubeChatMessage } from './youtube.service';
 import { FilterResult } from './chat-filter.service';
 import { MessageStorageService } from './message-storage.service';
 import { OpenAIService, ChatMessage as AIChatMessage } from './openai.service';
+import { EscalationService, EscalationContext } from './escalation.service';
 import { Message } from '../entities/message.entity';
 
 export interface QueueMessage {
@@ -70,6 +71,7 @@ export class ChatQueueService extends EventEmitter {
   constructor(
     private readonly messageStorageService: MessageStorageService,
     private readonly openaiService: OpenAIService,
+    private readonly escalationService: EscalationService,
   ) {
     super();
     this.startProcessing();
@@ -148,6 +150,9 @@ export class ChatQueueService extends EventEmitter {
         isApproved: true,
         filteredContent: message.content,
         flags: [],
+        isSpam: false,
+        isRelevant: true,
+        confidence: 1.0,
       },
       streamId: message.streamId,
       priority: this.config.priorityLevels.high,
@@ -267,8 +272,42 @@ export class ChatQueueService extends EventEmitter {
         authorName: queueMessage.message.authorName,
         authorAvatar: queueMessage.message.authorAvatar,
         content: queueMessage.message.content,
-        metadata: queueMessage.message.metadata as any,
+        metadata: queueMessage.message.metadata,
       });
+
+      // Check for escalation before AI response
+      // Get streamerId from the stream (we'll need to fetch the stream)
+      const stream = await this.messageStorageService.getStream(
+        storedMessage.streamId,
+      );
+      const escalationContext: EscalationContext = {
+        message: storedMessage,
+        streamerId: stream?.streamerId || 'unknown',
+        streamId: storedMessage.streamId,
+        chatHistory:
+          await this.messageStorageService.getRecentMessagesForStream(
+            storedMessage.streamId,
+            10,
+          ),
+        userImportance: 0.5, // Default importance, can be enhanced
+        streamContext: 'general',
+        currentTime: new Date(),
+      };
+
+      const escalationResult =
+        await this.escalationService.checkForEscalation(escalationContext);
+
+      if (escalationResult.shouldEscalate) {
+        this.logger.log(
+          `Message escalated: ${storedMessage.content} - ${escalationResult.reason}`,
+        );
+        // Don't generate AI response for escalated messages
+        this.emit('message.escalated', {
+          message: storedMessage,
+          escalationResult,
+        });
+        return;
+      }
 
       // Emit the message for processing
       this.emit('message.process', {

@@ -4,7 +4,7 @@ export interface ChatFilterConfig {
   enabled: boolean;
   maxLength: number;
   inappropriateKeywords: string[];
-  spamPatterns: string[];
+  spamPatterns: (string | RegExp)[];
   indonesianSlangs: {
     positive: string[];
     negative: string[];
@@ -17,6 +17,15 @@ export interface FilterResult {
   filteredContent?: string;
   reason?: string;
   flags: string[];
+  isSpam: boolean;
+  isRelevant: boolean;
+  confidence: number;
+  metadata?: {
+    isModerator?: boolean;
+    isOwner?: boolean;
+    isSubscriber?: boolean;
+    badges?: string[];
+  };
 }
 
 @Injectable()
@@ -108,7 +117,13 @@ export class ChatFilterService {
     const filterConfig = { ...this.defaultConfig, ...config };
 
     if (!filterConfig.enabled) {
-      return { isApproved: true, flags: [] };
+      return {
+        isApproved: true,
+        flags: [],
+        isSpam: false,
+        isRelevant: true,
+        confidence: 1.0,
+      };
     }
 
     const flags: string[] = [];
@@ -131,16 +146,26 @@ export class ChatFilterService {
         isApproved: false,
         reason: `Contains inappropriate keywords: ${foundKeywords.join(', ')}`,
         flags: ['inappropriate_content'],
+        isSpam: true,
+        isRelevant: false,
+        confidence: 0.1,
       };
     }
 
     // Check for spam patterns
     for (const pattern of filterConfig.spamPatterns) {
-      if (pattern.test(content)) {
+      if (
+        typeof pattern === 'string'
+          ? content.includes(pattern)
+          : pattern.test(content)
+      ) {
         return {
           isApproved: false,
           reason: 'Detected spam pattern',
           flags: ['spam_pattern'],
+          isSpam: true,
+          isRelevant: false,
+          confidence: 0.2,
         };
       }
     }
@@ -165,6 +190,11 @@ export class ChatFilterService {
       isApproved: true,
       filteredContent,
       flags,
+      isSpam: flags.includes('spam_pattern'),
+      isRelevant:
+        !flags.includes('spam_pattern') &&
+        !flags.includes('inappropriate_content'),
+      confidence: flags.length === 0 ? 1.0 : 0.8,
     };
   }
 
