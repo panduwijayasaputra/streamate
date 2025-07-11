@@ -315,6 +315,84 @@ export default function OBSCharacterPage() {
           background-clip: padding-box;
         }
 
+        /* OBS Dimension Detection and Responsive Design */
+
+        /* Ultra-wide screens (21:9, 32:9) - Common for gaming streams */
+        @media (min-aspect-ratio: 21/9) {
+          .obs-character-container {
+            /* Optimize for ultra-wide layouts */
+          }
+        }
+
+        /* Standard widescreen (16:9) - Most common streaming format */
+        @media (min-aspect-ratio: 16/9) and (max-aspect-ratio: 21/9) {
+          .obs-character-container {
+            /* Standard widescreen optimization */
+          }
+        }
+
+        /* Portrait orientation (9:16, 4:3) - Mobile/vertical streams */
+        @media (max-aspect-ratio: 1/1) {
+          .obs-character-container {
+            /* Portrait mode optimization */
+          }
+        }
+
+        /* Square aspect ratio (1:1) - Instagram Live, etc. */
+        @media (min-aspect-ratio: 1/1) and (max-aspect-ratio: 16/9) {
+          .obs-character-container {
+            /* Square format optimization */
+          }
+        }
+
+        /* Small OBS browser sources (under 400px width) */
+        @media (max-width: 400px) {
+          .obs-character-container {
+            /* Compact layout for small overlays */
+          }
+        }
+
+        /* Medium OBS browser sources (400px - 800px width) */
+        @media (min-width: 400px) and (max-width: 800px) {
+          .obs-character-container {
+            /* Medium overlay optimization */
+          }
+        }
+
+        /* Large OBS browser sources (over 800px width) */
+        @media (min-width: 800px) {
+          .obs-character-container {
+            /* Large overlay optimization */
+          }
+        }
+
+        /* Ultra-small OBS sources (under 300px) */
+        @media (max-width: 300px) {
+          .obs-character-container {
+            /* Minimal layout for very small overlays */
+          }
+        }
+
+        /* Extra large OBS sources (over 1200px) */
+        @media (min-width: 1200px) {
+          .obs-character-container {
+            /* Large display optimization */
+          }
+        }
+
+        /* Height-based responsive design for vertical layouts */
+        @media (max-height: 400px) {
+          .obs-character-container {
+            /* Short height optimization */
+          }
+        }
+
+        @media (min-height: 800px) {
+          .obs-character-container {
+            /* Tall height optimization */
+          }
+        }
+
         /* New Config Panel Styles */
         .new-config-panel {
           position: fixed;
@@ -441,18 +519,147 @@ export default function OBSCharacterPage() {
           transform: translateY(-1px);
         }
 
-        /* Responsive adjustments for different OBS dimensions */
+        /* Enhanced responsive adjustments for different OBS dimensions */
+
+        /* Ultra-small OBS sources */
+        @media (max-width: 300px) {
+          .new-config-panel {
+            top: 5px;
+            right: 5px;
+            width: 250px;
+            max-height: 70vh;
+          }
+
+          .config-header {
+            padding: 12px 15px;
+          }
+
+          .config-header h3 {
+            font-size: 14px;
+          }
+
+          .config-body {
+            padding: 15px;
+          }
+
+          .config-section h4 {
+            font-size: 12px;
+          }
+
+          .style-btn,
+          .size-btn {
+            padding: 6px 10px;
+            font-size: 11px;
+          }
+        }
+
+        /* Small OBS sources */
         @media (max-width: 400px) {
           .new-config-panel {
             top: 10px;
             right: 10px;
             width: 280px;
           }
+
+          .config-header h3 {
+            font-size: 15px;
+          }
+
+          .style-btn,
+          .size-btn {
+            padding: 7px 11px;
+            font-size: 11px;
+          }
         }
 
+        /* Medium OBS sources */
+        @media (min-width: 400px) and (max-width: 800px) {
+          .new-config-panel {
+            width: 320px;
+          }
+        }
+
+        /* Large OBS sources */
         @media (min-width: 800px) {
           .new-config-panel {
             width: 350px;
+          }
+
+          .config-header h3 {
+            font-size: 18px;
+          }
+
+          .style-btn,
+          .size-btn {
+            padding: 10px 15px;
+            font-size: 13px;
+          }
+        }
+
+        /* Extra large OBS sources */
+        @media (min-width: 1200px) {
+          .new-config-panel {
+            width: 380px;
+          }
+
+          .config-header h3 {
+            font-size: 20px;
+          }
+
+          .style-btn,
+          .size-btn {
+            padding: 12px 18px;
+            font-size: 14px;
+          }
+        }
+
+        /* Portrait orientation adjustments */
+        @media (max-aspect-ratio: 1/1) {
+          .new-config-panel {
+            width: 90vw;
+            max-width: 350px;
+            right: 5vw;
+            left: 5vw;
+          }
+        }
+
+        /* Ultra-wide adjustments */
+        @media (min-aspect-ratio: 21/9) {
+          .new-config-panel {
+            right: 30px;
+          }
+        }
+
+        /* Height-based adjustments */
+        @media (max-height: 400px) {
+          .new-config-panel {
+            max-height: 60vh;
+          }
+
+          .config-body {
+            padding: 15px;
+          }
+
+          .config-section {
+            margin-bottom: 15px;
+          }
+        }
+
+        @media (min-height: 800px) {
+          .new-config-panel {
+            max-height: 85vh;
+          }
+        }
+
+        /* Development mode adjustments */
+        @media (max-width: 600px) and (max-height: 400px) {
+          .new-config-panel {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: calc(100vw - 10px);
+            max-width: 300px;
+            max-height: calc(100vh - 10px);
           }
         }
       `}</style>

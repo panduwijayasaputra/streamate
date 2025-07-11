@@ -261,7 +261,182 @@ export default function ChatBubble({
           }
         }
 
-        /* Responsive design */
+        /* Responsive design for different OBS dimensions */
+
+        /* Ultra-small OBS sources (under 300px width) */
+        @media (max-width: 300px) {
+          .chat-bubble {
+            padding: 6px 10px;
+            border-radius: 10px;
+            max-width: 200px;
+          }
+
+          .message-text {
+            font-size: 10px;
+            line-height: 1.2;
+          }
+
+          .bubble-tail {
+            border-left-width: 5px;
+            border-right-width: 5px;
+            border-top-width: 5px;
+          }
+        }
+
+        /* Small OBS sources (300px - 400px width) */
+        @media (min-width: 300px) and (max-width: 400px) {
+          .chat-bubble {
+            padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 250px;
+          }
+
+          .message-text {
+            font-size: 12px;
+            line-height: 1.3;
+          }
+
+          .bubble-tail {
+            border-left-width: 6px;
+            border-right-width: 6px;
+            border-top-width: 6px;
+          }
+        }
+
+        /* Medium OBS sources (400px - 800px width) */
+        @media (min-width: 400px) and (max-width: 800px) {
+          .chat-bubble {
+            padding: 12px 16px;
+            border-radius: 16px;
+            max-width: 300px;
+          }
+
+          .message-text {
+            font-size: 14px;
+            line-height: 1.4;
+          }
+
+          .bubble-tail {
+            border-left-width: 8px;
+            border-right-width: 8px;
+            border-top-width: 8px;
+          }
+        }
+
+        /* Large OBS sources (800px - 1200px width) */
+        @media (min-width: 800px) and (max-width: 1200px) {
+          .chat-bubble {
+            padding: 16px 20px;
+            border-radius: 20px;
+            max-width: 400px;
+          }
+
+          .message-text {
+            font-size: 16px;
+            line-height: 1.5;
+          }
+
+          .bubble-tail {
+            border-left-width: 10px;
+            border-right-width: 10px;
+            border-top-width: 10px;
+          }
+        }
+
+        /* Extra large OBS sources (over 1200px width) */
+        @media (min-width: 1200px) {
+          .chat-bubble {
+            padding: 20px 25px;
+            border-radius: 25px;
+            max-width: 500px;
+          }
+
+          .message-text {
+            font-size: 18px;
+            line-height: 1.6;
+          }
+
+          .bubble-tail {
+            border-left-width: 12px;
+            border-right-width: 12px;
+            border-top-width: 12px;
+          }
+        }
+
+        /* Aspect ratio responsive design */
+
+        /* Ultra-wide screens (21:9, 32:9) */
+        @media (min-aspect-ratio: 21/9) {
+          .chat-bubble {
+            max-width: 600px;
+          }
+        }
+
+        /* Standard widescreen (16:9) */
+        @media (min-aspect-ratio: 16/9) and (max-aspect-ratio: 21/9) {
+          .chat-bubble {
+            max-width: 400px;
+          }
+        }
+
+        /* Portrait orientation (9:16, 4:3) */
+        @media (max-aspect-ratio: 1/1) {
+          .chat-bubble {
+            max-width: 80vw;
+            padding: 10px 14px;
+          }
+
+          .message-text {
+            font-size: 13px;
+          }
+        }
+
+        /* Square aspect ratio (1:1) */
+        @media (min-aspect-ratio: 1/1) and (max-aspect-ratio: 16/9) {
+          .chat-bubble {
+            max-width: 350px;
+          }
+        }
+
+        /* Height-based responsive design */
+        @media (max-height: 400px) {
+          .chat-bubble {
+            padding: 8px 12px;
+            border-radius: 12px;
+          }
+
+          .message-text {
+            font-size: 12px;
+            line-height: 1.3;
+          }
+        }
+
+        @media (min-height: 800px) {
+          .chat-bubble {
+            padding: 18px 22px;
+            border-radius: 22px;
+          }
+
+          .message-text {
+            font-size: 16px;
+            line-height: 1.5;
+          }
+        }
+
+        /* Ultra-tall layouts */
+        @media (min-height: 1000px) {
+          .chat-bubble {
+            padding: 22px 26px;
+            border-radius: 26px;
+          }
+
+          .message-text {
+            font-size: 18px;
+            line-height: 1.6;
+          }
+        }
+
+        /* Legacy responsive design (keeping for backward compatibility) */
         @media (max-width: 400px) {
           .chat-bubble {
             padding: 8px 12px;
