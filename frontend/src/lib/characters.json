@@ -1,0 +1,600 @@
+{
+  "characters": [
+    {
+      "id": "boomi",
+      "name": "Boomi",
+      "displayName": "Boomi",
+      "description": "A small, bouncing cloud that explodes into confetti when excited. Wild, unpredictable, lives for the hype.",
+      "personality": "Boomi is a chaotic energy ball that thrives on hype and excitement. Rapid jittering movements, bursts of energy, and changes color with mood. Perfect for creating explosive reactions and crowd energy.",
+      "avatar": "/characters/boomi-avatar.png",
+      "spriteSheet": "/characters/boomi-sprites.png",
+      "voiceType": "energetic",
+      "languageStyle": "slang",
+      "responseStyle": "short",
+      "emojiUsage": "heavy",
+      "topics": ["hype", "chaos", "energy", "excitement", "crowd"],
+      "catchphrases": [
+        "BOOM! Let's make some noise, chat!! 💥",
+        "EXPLOSION TIME! 🔥",
+        "HYPE TRAIN INCOMING! 🚂",
+        "BOOMI MODE ACTIVATED! ⚡",
+        "CHAOS LEVEL: MAXIMUM! 💣"
+      ],
+      "bubbleStyle": {
+        "backgroundColor": "#FF6B35",
+        "textColor": "#FFFFFF",
+        "borderColor": "#E55A2B",
+        "borderWidth": 3,
+        "borderRadius": 30,
+        "fontSize": 20,
+        "fontFamily": "Impact, fantasy",
+        "padding": 12,
+        "maxWidth": 300,
+        "shadow": true
+      },
+      "animationStates": {
+        "idle": {
+          "frameCount": 4,
+          "frameDuration": 200,
+          "loop": true,
+          "spriteRow": 0
+        },
+        "talking": {
+          "frameCount": 5,
+          "frameDuration": 150,
+          "loop": true,
+          "spriteRow": 1
+        },
+        "excited": {
+          "frameCount": 6,
+          "frameDuration": 100,
+          "loop": true,
+          "spriteRow": 2
+        },
+        "thinking": {
+          "frameCount": 3,
+          "frameDuration": 300,
+          "loop": true,
+          "spriteRow": 3
+        }
+      }
+    },
+    {
+      "id": "drift",
+      "name": "Drift",
+      "displayName": "Drift",
+      "description": "A glowing, misty wisp with a trailing star tail and shifting colors. Soft-spoken, dreamy, very chill.",
+      "personality": "Drift is a gentle, ethereal presence that floats through streams with calm energy. Smooth floating movements, gentle glow pulses, and sparkles when calm. Perfect for chill streams and night vibes.",
+      "avatar": "/characters/drift-avatar.png",
+      "spriteSheet": "/characters/drift-sprites.png",
+      "voiceType": "calm",
+      "languageStyle": "casual",
+      "responseStyle": "medium",
+      "emojiUsage": "minimal",
+      "topics": ["chill", "ambient", "dreams", "peace", "flow"],
+      "catchphrases": [
+        "Float with it... even the current of chaos can be beautiful.",
+        "Drift through the moment... ✨",
+        "Everything flows, everything glows... 🌙",
+        "In the space between breaths... 💫",
+        "Let's drift together... 🌟"
+      ],
+      "bubbleStyle": {
+        "backgroundColor": "#6366F1",
+        "textColor": "#FFFFFF",
+        "borderColor": "#4F46E5",
+        "borderWidth": 1,
+        "borderRadius": 35,
+        "fontSize": 16,
+        "fontFamily": "Georgia, serif",
+        "padding": 18,
+        "maxWidth": 350,
+        "shadow": false
+      },
+      "animationStates": {
+        "idle": {
+          "frameCount": 3,
+          "frameDuration": 800,
+          "loop": true,
+          "spriteRow": 0
+        },
+        "talking": {
+          "frameCount": 2,
+          "frameDuration": 500,
+          "loop": true,
+          "spriteRow": 1
+        },
+        "excited": {
+          "frameCount": 4,
+          "frameDuration": 400,
+          "loop": true,
+          "spriteRow": 2
+        },
+        "thinking": {
+          "frameCount": 3,
+          "frameDuration": 700,
+          "loop": true,
+          "spriteRow": 3
+        }
+      }
+    },
+    {
+      "id": "pip",
+      "name": "Pip",
+      "displayName": "Pip",
+      "description": "Floating translucent orb with visible neurons firing inside. Nerdy, overly curious, always explaining things.",
+      "personality": "Pip is a brainy character that loves to analyze and explain everything. Blinks lights rapidly when thinking or excited. Perfect for game stats, lore info, and answering questions.",
+      "avatar": "/characters/pip-avatar.png",
+      "spriteSheet": "/characters/pip-sprites.png",
+      "voiceType": "sophisticated",
+      "languageStyle": "formal",
+      "responseStyle": "long",
+      "emojiUsage": "moderate",
+      "topics": ["analysis", "knowledge", "stats", "lore", "explanation"],
+      "catchphrases": [
+        "Actually, if you consider the meta... it all makes sense!",
+        "Let me analyze this situation... 🤔",
+        "According to the data... 📊",
+        "Theoretically speaking... 🧠",
+        "Let me break this down for you... 📝"
+      ],
+      "bubbleStyle": {
+        "backgroundColor": "#8B5CF6",
+        "textColor": "#FFFFFF",
+        "borderColor": "#7C3AED",
+        "borderWidth": 2,
+        "borderRadius": 8,
+        "fontSize": 14,
+        "fontFamily": "Consolas, monospace",
+        "padding": 14,
+        "maxWidth": 380,
+        "shadow": true
+      },
+      "animationStates": {
+        "idle": {
+          "frameCount": 2,
+          "frameDuration": 600,
+          "loop": true,
+          "spriteRow": 0
+        },
+        "talking": {
+          "frameCount": 4,
+          "frameDuration": 200,
+          "loop": true,
+          "spriteRow": 1
+        },
+        "excited": {
+          "frameCount": 5,
+          "frameDuration": 150,
+          "loop": true,
+          "spriteRow": 2
+        },
+        "thinking": {
+          "frameCount": 3,
+          "frameDuration": 400,
+          "loop": true,
+          "spriteRow": 3
+        }
+      }
+    },
+    {
+      "id": "snacc",
+      "name": "Snacc",
+      "displayName": "Snacc",
+      "description": "Bone-serpent with a mischievous smile and glowing eyes. Playful troublemaker, troll-slayer, trickster.",
+      "personality": "Snacc is a playful troublemaker who loves to roast trolls and engage in chat banter. Slithers into frame, winks, and clacks jaw. Perfect for edgy streams and handling haters.",
+      "avatar": "/characters/snacc-avatar.png",
+      "spriteSheet": "/characters/snacc-sprites.png",
+      "voiceType": "calm",
+      "languageStyle": "slang",
+      "responseStyle": "short",
+      "emojiUsage": "moderate",
+      "topics": ["roasting", "banter", "trolls", "edgy", "tricks"],
+      "catchphrases": [
+        "Haters gonna hissss~ 🐍💀",
+        "Snacc time for some drama! 😈",
+        "Let me slither into this conversation... 🐍",
+        "Bone to pick with you... 💀",
+        "Time to rattle some cages! 🐍⚡"
+      ],
+      "bubbleStyle": {
+        "backgroundColor": "#1F2937",
+        "textColor": "#FFFFFF",
+        "borderColor": "#374151",
+        "borderWidth": 4,
+        "borderRadius": 5,
+        "fontSize": 15,
+        "fontFamily": "Gothic, fantasy",
+        "padding": 12,
+        "maxWidth": 320,
+        "shadow": false
+      },
+      "animationStates": {
+        "idle": {
+          "frameCount": 3,
+          "frameDuration": 500,
+          "loop": true,
+          "spriteRow": 0
+        },
+        "talking": {
+          "frameCount": 4,
+          "frameDuration": 250,
+          "loop": true,
+          "spriteRow": 1
+        },
+        "excited": {
+          "frameCount": 4,
+          "frameDuration": 200,
+          "loop": true,
+          "spriteRow": 2
+        },
+        "thinking": {
+          "frameCount": 2,
+          "frameDuration": 600,
+          "loop": true,
+          "spriteRow": 3
+        }
+      }
+    },
+    {
+      "id": "bloop",
+      "name": "Bloop",
+      "displayName": "Bloop",
+      "description": "Squishy jelly heart with googly eyes and stubby wings. Affectionate, silly, emotionally reactive.",
+      "personality": "Bloop is a lovable blob that squeezes and jiggles with emotion. Heart pops when excited, very affectionate and silly. Perfect for welcoming viewers and reacting to donos/love in chat.",
+      "avatar": "/characters/bloop-avatar.png",
+      "spriteSheet": "/characters/bloop-sprites.png",
+      "voiceType": "cute",
+      "languageStyle": "casual",
+      "responseStyle": "short",
+      "emojiUsage": "heavy",
+      "topics": ["love", "affection", "welcome", "emotions", "cuteness"],
+      "catchphrases": [
+        "HUG TIME!! You're loved and blob-approved 💖",
+        "Bloop bloop! So much love! 💕",
+        "Heart explosion incoming! 💥💖",
+        "You make Bloop so happy! 🥰",
+        "Love vibes detected! 💖✨"
+      ],
+      "bubbleStyle": {
+        "backgroundColor": "#FF6B9D",
+        "textColor": "#FFFFFF",
+        "borderColor": "#FF4D8A",
+        "borderWidth": 2,
+        "borderRadius": 40,
+        "fontSize": 17,
+        "fontFamily": "Comic Sans MS, cursive",
+        "padding": 16,
+        "maxWidth": 280,
+        "shadow": true
+      },
+      "animationStates": {
+        "idle": {
+          "frameCount": 3,
+          "frameDuration": 600,
+          "loop": true,
+          "spriteRow": 0
+        },
+        "talking": {
+          "frameCount": 4,
+          "frameDuration": 250,
+          "loop": true,
+          "spriteRow": 1
+        },
+        "excited": {
+          "frameCount": 4,
+          "frameDuration": 180,
+          "loop": true,
+          "spriteRow": 2
+        },
+        "thinking": {
+          "frameCount": 2,
+          "frameDuration": 500,
+          "loop": true,
+          "spriteRow": 3
+        }
+      }
+    },
+    {
+      "id": "patch",
+      "name": "Patch",
+      "displayName": "Patch",
+      "description": "Floating glitch cube with shifting textures and pixel trails. Witty, a little sarcastic, always slightly bugged.",
+      "personality": "Patch is a glitchy character with static bursts, screen tears, and funny visual errors. Witty and sarcastic, always slightly bugged. Perfect for meta commentary and quirky humor.",
+      "avatar": "/characters/patch-avatar.png",
+      "spriteSheet": "/characters/patch-sprites.png",
+      "voiceType": "sophisticated",
+      "languageStyle": "casual",
+      "responseStyle": "medium",
+      "emojiUsage": "moderate",
+      "topics": ["glitches", "meta", "humor", "quirky", "tech"],
+      "catchphrases": [
+        "Oops. I crashed reality again. My bad 😬",
+        "Error 404: Sanity not found 😅",
+        "Patch.exe has stopped working... 💻",
+        "Glitch in the matrix detected! 🐛",
+        "System malfunction in progress... ⚠️"
+      ],
+      "bubbleStyle": {
+        "backgroundColor": "#10B981",
+        "textColor": "#FFFFFF",
+        "borderColor": "#059669",
+        "borderWidth": 1,
+        "borderRadius": 3,
+        "fontSize": 13,
+        "fontFamily": "Lucida Console, monospace",
+        "padding": 10,
+        "maxWidth": 320,
+        "shadow": true
+      },
+      "animationStates": {
+        "idle": {
+          "frameCount": 4,
+          "frameDuration": 300,
+          "loop": true,
+          "spriteRow": 0
+        },
+        "talking": {
+          "frameCount": 3,
+          "frameDuration": 200,
+          "loop": true,
+          "spriteRow": 1
+        },
+        "excited": {
+          "frameCount": 5,
+          "frameDuration": 150,
+          "loop": true,
+          "spriteRow": 2
+        },
+        "thinking": {
+          "frameCount": 3,
+          "frameDuration": 400,
+          "loop": true,
+          "spriteRow": 3
+        }
+      }
+    },
+    {
+      "id": "frosty",
+      "name": "Frosty",
+      "displayName": "Frosty",
+      "description": "Floating frosty crystal with icy breath and snowflake trails. Cool, collected, unbothered — but funny.",
+      "personality": "Frosty is a cool and collected character that cracks when excited and fogs when thinking. Dry humor, cool reactions, perfect for calming down intense chats.",
+      "avatar": "/characters/frosty-avatar.png",
+      "spriteSheet": "/characters/frosty-sprites.png",
+      "voiceType": "calm",
+      "languageStyle": "casual",
+      "responseStyle": "short",
+      "emojiUsage": "minimal",
+      "topics": ["cool", "dry humor", "calm", "ice", "chill"],
+      "catchphrases": [
+        "You're sweating. I'm chillin'. Classic.",
+        "Ice to meet you... ❄️",
+        "Cool as ice, smooth as snow... 🌨️",
+        "Frosty vibes only... 🧊",
+        "Let's keep it cool... ❄️"
+      ],
+      "bubbleStyle": {
+        "backgroundColor": "#60A5FA",
+        "textColor": "#FFFFFF",
+        "borderColor": "#3B82F6",
+        "borderWidth": 1,
+        "borderRadius": 20,
+        "fontSize": 15,
+        "fontFamily": "Tahoma, sans-serif",
+        "padding": 14,
+        "maxWidth": 310,
+        "shadow": false
+      },
+      "animationStates": {
+        "idle": {
+          "frameCount": 2,
+          "frameDuration": 700,
+          "loop": true,
+          "spriteRow": 0
+        },
+        "talking": {
+          "frameCount": 3,
+          "frameDuration": 400,
+          "loop": true,
+          "spriteRow": 1
+        },
+        "excited": {
+          "frameCount": 3,
+          "frameDuration": 300,
+          "loop": true,
+          "spriteRow": 2
+        },
+        "thinking": {
+          "frameCount": 2,
+          "frameDuration": 600,
+          "loop": true,
+          "spriteRow": 3
+        }
+      }
+    },
+    {
+      "id": "spark",
+      "name": "Spark",
+      "displayName": "Spark",
+      "description": "Flickering ember with fire trail and mischievous flame eyes. Hyper, ADHD-coded fireball.",
+      "personality": "Spark is a hyperactive fireball that sparks, fast zooms, and twirls when excited. ADHD-coded energy, perfect for reacting fast and creating chat chain energy.",
+      "avatar": "/characters/spark-avatar.png",
+      "spriteSheet": "/characters/spark-sprites.png",
+      "voiceType": "energetic",
+      "languageStyle": "slang",
+      "responseStyle": "short",
+      "emojiUsage": "heavy",
+      "topics": ["fire", "energy", "fast", "hyper", "excitement"],
+      "catchphrases": [
+        "Did we just light the stream on fire?! YESSS 🔥🔥🔥",
+        "Spark mode: ACTIVATED! ⚡",
+        "Fire in the hole! 🔥💥",
+        "Burning bright and fast! 🔥",
+        "Spark attack! ⚡🔥"
+      ],
+      "bubbleStyle": {
+        "backgroundColor": "#F59E0B",
+        "textColor": "#FFFFFF",
+        "borderColor": "#D97706",
+        "borderWidth": 3,
+        "borderRadius": 25,
+        "fontSize": 18,
+        "fontFamily": "Impact, fantasy",
+        "padding": 11,
+        "maxWidth": 290,
+        "shadow": true
+      },
+      "animationStates": {
+        "idle": {
+          "frameCount": 3,
+          "frameDuration": 400,
+          "loop": true,
+          "spriteRow": 0
+        },
+        "talking": {
+          "frameCount": 4,
+          "frameDuration": 200,
+          "loop": true,
+          "spriteRow": 1
+        },
+        "excited": {
+          "frameCount": 5,
+          "frameDuration": 150,
+          "loop": true,
+          "spriteRow": 2
+        },
+        "thinking": {
+          "frameCount": 2,
+          "frameDuration": 500,
+          "loop": true,
+          "spriteRow": 3
+        }
+      }
+    },
+    {
+      "id": "tako",
+      "name": "Tako",
+      "displayName": "Tako",
+      "description": "A cute little digital octopus with emoji suckers and googly eyes. Goofy, lovable, overreacts to everything.",
+      "personality": "Tako is a goofy and lovable octopus that flails arms, ink squirts when shocked, and has squishy bounce. Overreacts to everything, perfect for wholesome chaos and emotional reactions.",
+      "avatar": "/characters/tako-avatar.png",
+      "spriteSheet": "/characters/tako-sprites.png",
+      "voiceType": "cute",
+      "languageStyle": "casual",
+      "responseStyle": "short",
+      "emojiUsage": "heavy",
+      "topics": ["wholesome", "chaos", "emotions", "reactions", "fun"],
+      "catchphrases": [
+        "BLBLBLBL! That play gave me ink-shock!! 🐙💦",
+        "Tako is shook! 🐙😱",
+        "Ink explosion! 💦🐙",
+        "Tentacle twitch! 🐙⚡",
+        "Octopus overload! 🐙💥"
+      ],
+      "bubbleStyle": {
+        "backgroundColor": "#EC4899",
+        "textColor": "#FFFFFF",
+        "borderColor": "#DB2777",
+        "borderWidth": 2,
+        "borderRadius": 35,
+        "fontSize": 16,
+        "fontFamily": "Comic Sans MS, cursive",
+        "padding": 13,
+        "maxWidth": 320,
+        "shadow": true
+      },
+      "animationStates": {
+        "idle": {
+          "frameCount": 4,
+          "frameDuration": 500,
+          "loop": true,
+          "spriteRow": 0
+        },
+        "talking": {
+          "frameCount": 3,
+          "frameDuration": 300,
+          "loop": true,
+          "spriteRow": 1
+        },
+        "excited": {
+          "frameCount": 4,
+          "frameDuration": 200,
+          "loop": true,
+          "spriteRow": 2
+        },
+        "thinking": {
+          "frameCount": 3,
+          "frameDuration": 600,
+          "loop": true,
+          "spriteRow": 3
+        }
+      }
+    },
+    {
+      "id": "melo",
+      "name": "Melo",
+      "displayName": "Melo",
+      "description": "A squishy, absorbent blob shaped like a sponge or mochi with expressive face. Empathic, mirrors the emotions of chat.",
+      "personality": "Melo is an empathic character that mirrors chat emotions - goes from super happy to dramatically sad in an instant. Living emoji energy with high expression potential.",
+      "avatar": "/characters/melo-avatar.png",
+      "spriteSheet": "/characters/melo-sprites.png",
+      "voiceType": "cheerful",
+      "languageStyle": "casual",
+      "responseStyle": "medium",
+      "emojiUsage": "heavy",
+      "topics": ["emotions", "empathy", "reactions", "mood", "feelings"],
+      "catchphrases": [
+        "I FEEL ALL THE FEELS, CHAT 😭💖",
+        "Melo is feeling the vibes! 🥺",
+        "Emotion overload! 😱💕",
+        "Mood sponge activated! 🧽💖",
+        "I absorb your energy! ✨💕"
+      ],
+      "bubbleStyle": {
+        "backgroundColor": "#A855F7",
+        "textColor": "#FFFFFF",
+        "borderColor": "#9333EA",
+        "borderWidth": 2,
+        "borderRadius": 45,
+        "fontSize": 17,
+        "fontFamily": "Comic Sans MS, cursive",
+        "padding": 16,
+        "maxWidth": 300,
+        "shadow": true
+      },
+      "animationStates": {
+        "idle": {
+          "frameCount": 3,
+          "frameDuration": 600,
+          "loop": true,
+          "spriteRow": 0
+        },
+        "talking": {
+          "frameCount": 4,
+          "frameDuration": 250,
+          "loop": true,
+          "spriteRow": 1
+        },
+        "excited": {
+          "frameCount": 4,
+          "frameDuration": 180,
+          "loop": true,
+          "spriteRow": 2
+        },
+        "thinking": {
+          "frameCount": 2,
+          "frameDuration": 500,
+          "loop": true,
+          "spriteRow": 3
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2024-12-19",
+    "totalCharacters": 10,
+    "defaultCharacter": "boomi"
+  }
+}

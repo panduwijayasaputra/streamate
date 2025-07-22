@@ -1,26 +1,574 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Clean, professional global styles inspired by modern design systems */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  min-height: 100%;
+  background-color: #ffffff;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #18181b; /* Dark gray for text */
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+}
+
+/* Custom scrollbar for a more polished look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Focus styles for better accessibility */
+*:focus {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for interactive elements */
+button,
+a,
+input,
+select,
+textarea {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Character Avatar Animations */
+.character-avatar {
+  transition: all 0.3s ease;
+}
+
+/* Idle/Breathing Animation */
+.character-avatar.idle .body {
+  animation: breathe 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.character-avatar.idle .eye-left,
+.character-avatar.idle .eye-right {
+  animation: blink 4s ease-in-out infinite;
+}
+
+/* Ensure face elements stay centered during body scaling */
+.character-avatar.idle .eye-left,
+.character-avatar.idle .eye-right,
+.character-avatar.idle .mouth,
+.character-avatar.idle .cheek-left,
+.character-avatar.idle .cheek-right {
+  transform-origin: center;
+  animation-fill-mode: both;
+}
+
+/* Talking Animation */
+.character-avatar.talking .body {
+  animation: talk 0.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.character-avatar.talking .mouth {
+  animation: mouthTalk 0.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.character-avatar.talking .eye-left,
+.character-avatar.talking .eye-right {
+  animation: talkBlink 0.8s ease-in-out infinite;
+}
+
+/* Ensure face elements stay centered during talking animation */
+.character-avatar.talking .eye-left,
+.character-avatar.talking .eye-right,
+.character-avatar.talking .cheek-left,
+.character-avatar.talking .cheek-right {
+  transform-origin: center;
+  animation-fill-mode: both;
+}
+
+/* Character-specific animations */
+.character-avatar.boomi.idle .particle-1 {
+  animation: float 2s ease-in-out infinite;
+}
+.character-avatar.boomi.idle .particle-2 {
+  animation: float 2.5s ease-in-out infinite 0.5s;
+}
+.character-avatar.boomi.idle .particle-3 {
+  animation: float 2.2s ease-in-out infinite 1s;
+}
+.character-avatar.boomi.idle .particle-4 {
+  animation: float 2.8s ease-in-out infinite 1.5s;
+}
+
+.character-avatar.drift.idle .sparkle-1 {
+  animation: sparkle 3s ease-in-out infinite;
+}
+.character-avatar.drift.idle .sparkle-2 {
+  animation: sparkle 3.5s ease-in-out infinite 1s;
+}
+.character-avatar.drift.idle .sparkle-3 {
+  animation: sparkle 2.8s ease-in-out infinite 2s;
+}
+
+.character-avatar.pip.idle .neuron-1 {
+  animation: pulse 2s ease-in-out infinite;
+}
+.character-avatar.pip.idle .neuron-2 {
+  animation: pulse 2.2s ease-in-out infinite 0.3s;
+}
+.character-avatar.pip.idle .neuron-3 {
+  animation: pulse 1.8s ease-in-out infinite 0.6s;
+}
+.character-avatar.pip.idle .neuron-4 {
+  animation: pulse 2.4s ease-in-out infinite 0.9s;
+}
+.character-avatar.pip.idle .neuron-5 {
+  animation: pulse 2.1s ease-in-out infinite 1.2s;
+}
+
+.character-avatar.snacc.idle .eye-left,
+.character-avatar.snacc.idle .eye-right {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.character-avatar.bloop.idle .sparkle-1 {
+  animation: bounce 2s ease-in-out infinite;
+}
+.character-avatar.bloop.idle .sparkle-2 {
+  animation: bounce 2.3s ease-in-out infinite 0.7s;
+}
+
+.character-avatar.patch.idle .glitch-line-1 {
+  animation: glitch 3s ease-in-out infinite;
+}
+.character-avatar.patch.idle .glitch-line-2 {
+  animation: glitch 3.2s ease-in-out infinite 0.5s;
+}
+.character-avatar.patch.idle .glitch-line-3 {
+  animation: glitch 2.8s ease-in-out infinite 1s;
+}
+
+.character-avatar.frosty.idle .snowflake-1 {
+  animation: fall 4s ease-in-out infinite;
+}
+.character-avatar.frosty.idle .snowflake-2 {
+  animation: fall 4.5s ease-in-out infinite 2s;
+}
+
+.character-avatar.spark.idle .spark-1 {
+  animation: flicker 1.5s ease-in-out infinite;
+}
+.character-avatar.spark.idle .spark-2 {
+  animation: flicker 1.7s ease-in-out infinite 0.3s;
+}
+.character-avatar.spark.idle .spark-3 {
+  animation: flicker 1.3s ease-in-out infinite 0.6s;
+}
+.character-avatar.spark.idle .spark-4 {
+  animation: flicker 1.9s ease-in-out infinite 0.9s;
+}
+
+.character-avatar.tako.idle .tentacle-1 {
+  animation: wiggle 2.5s ease-in-out infinite;
+}
+.character-avatar.tako.idle .tentacle-2 {
+  animation: wiggle 2.7s ease-in-out infinite 0.5s;
+}
+.character-avatar.tako.idle .tentacle-3 {
+  animation: wiggle 2.3s ease-in-out infinite 1s;
+}
+.character-avatar.tako.idle .tentacle-4 {
+  animation: wiggle 2.9s ease-in-out infinite 1.5s;
+}
+
+.character-avatar.melo.idle .sparkle-1 {
+  animation: emotion 3s ease-in-out infinite;
+}
+.character-avatar.melo.idle .sparkle-2 {
+  animation: emotion 3.3s ease-in-out infinite 1s;
+}
+.character-avatar.melo.idle .sparkle-3 {
+  animation: emotion 2.8s ease-in-out infinite 2s;
+}
+
+/* Keyframe Animations */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes blink {
+  0%,
+  90%,
+  100% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes talk {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes mouthTalk {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  25% {
+    transform: scaleY(1.1);
+  }
+  50% {
+    transform: scaleY(1.15);
+  }
+  75% {
+    transform: scaleY(1.05);
+  }
+}
+
+@keyframes talkBlink {
+  0%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-5px);
+    opacity: 0.7;
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.1);
+  }
+}
+
+@keyframes glitch {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  20% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(20px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  75% {
+    opacity: 0.8;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+}
+
+@keyframes emotion {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  33% {
+    transform: scale(1.2) rotate(120deg);
+    opacity: 1;
+  }
+  66% {
+    transform: scale(0.8) rotate(240deg);
+    opacity: 0.5;
+  }
+}
+
+/* Color Picker Styling */
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  border-radius: 50%;
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+
+input[type="color"]::-moz-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+
+/* Custom Slider Styles */
+.slider-thumb-blue-600::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #2563eb;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider-thumb-blue-600::-webkit-slider-thumb:hover {
+  background: #1d4ed8;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.slider-thumb-green-600::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #16a34a;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider-thumb-green-600::-webkit-slider-thumb:hover {
+  background: #15803d;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.slider-thumb-purple-600::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #9333ea;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider-thumb-purple-600::-webkit-slider-thumb:hover {
+  background: #7c3aed;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.slider-thumb-orange-600::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #ea580c;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider-thumb-orange-600::-webkit-slider-thumb:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.slider-thumb-indigo-600::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #4f46e5;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider-thumb-indigo-600::-webkit-slider-thumb:hover {
+  background: #4338ca;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Firefox slider thumb styles */
+.slider-thumb-blue-600::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #2563eb;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider-thumb-green-600::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #16a34a;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider-thumb-purple-600::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #9333ea;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider-thumb-orange-600::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #ea580c;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider-thumb-indigo-600::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #4f46e5;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
 }
