@@ -14,6 +14,7 @@ import {
   BellIcon,
   QuestionMarkCircleIcon,
   BoltIcon,
+  VideoCameraIcon,
 } from "@heroicons/react/24/outline";
 
 interface PortalLayoutProps {
@@ -29,6 +30,11 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
       name: "Dashboard",
       href: "/portal",
       icon: <HomeIcon className="w-5 h-5" />,
+    },
+    {
+      name: "Stream Monitor",
+      href: "/portal/stream-monitor",
+      icon: <VideoCameraIcon className="w-5 h-5" />,
     },
     {
       name: "AI Settings",

@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import {
   ChartBarIcon,
   ClockIcon,
@@ -9,21 +12,242 @@ import {
   ArrowTrendingUpIcon,
   SpeakerWaveIcon,
   Cog6ToothIcon,
+  ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
+import { analyticsService } from "@/services";
+import {
+  StreamPerformance,
+  AnalyticsMetric,
+  TimeSeriesData,
+  ChartData,
+  EngagementMetrics,
+  ViewerDemographics,
+  RevenueAnalytics,
+  AIAnalytics,
+} from "@/types/analytics";
+import {
+  ViewerGrowthChart,
+  AIResponseActivityChart,
+} from "@/components/analytics/ChartComponents";
+import { PageHeader } from "@/components/shared/PageHeader";
 
 export default function AnalyticsPage() {
+  const [analyticsData, setAnalyticsData] = useState<{
+    performance: StreamPerformance;
+    metrics: AnalyticsMetric[];
+    timeSeries: TimeSeriesData[];
+    chartData: ChartData;
+    engagement: EngagementMetrics;
+    demographics: ViewerDemographics;
+    revenue: RevenueAnalytics;
+    ai: AIAnalytics;
+  } | null>(null);
+  const [viewerGrowthData, setViewerGrowthData] = useState<ChartData | null>(
+    null
+  );
+  const [aiResponseActivityData, setAiResponseActivityData] =
+    useState<ChartData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Load analytics data
+  useEffect(() => {
+    const loadAnalyticsData = async () => {
+      try {
+        setLoading(true);
+
+        // Load main analytics data
+        const mainResponse = await analyticsService.getAllAnalyticsData();
+        if (mainResponse.success && mainResponse.data) {
+          setAnalyticsData(mainResponse.data);
+        } else {
+          setError(mainResponse.error || "Failed to load analytics data");
+        }
+
+        // Load viewer growth data
+        const viewerGrowthResponse =
+          await analyticsService.getViewerGrowthData();
+        if (viewerGrowthResponse.success && viewerGrowthResponse.data) {
+          setViewerGrowthData(viewerGrowthResponse.data);
+        }
+
+        // Load AI response activity data
+        const aiResponseResponse =
+          await analyticsService.getAIResponseActivityData();
+        if (aiResponseResponse.success && aiResponseResponse.data) {
+          setAiResponseActivityData(aiResponseResponse.data);
+        }
+      } catch (err) {
+        setError("Failed to load analytics data");
+        console.error("Analytics data loading error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAnalyticsData();
+  }, []);
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading analytics...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <ExclamationTriangleIcon className="h-12 w-12 text-red-500 mx-auto" />
+          <p className="mt-4 text-gray-600">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Use fallback data if service data is null
+  const data = analyticsData || {
+    performance: {
+      totalStreamTime: "48h 32m",
+      averageViewers: 892,
+      peakViewers: 1247,
+      totalChatMessages: 2847,
+      averageWatchTime: "23 min",
+      engagementRate: 87,
+      followerGrowth: 156,
+      revenueGenerated: 1250.5,
+    },
+    metrics: [
+      {
+        name: "Total Stream Time",
+        value: "48h 32m",
+        change: "+12%",
+        trend: "up",
+        period: "This month",
+      },
+      {
+        name: "Peak Viewers",
+        value: "1,247",
+        change: "+8%",
+        trend: "up",
+        period: "This month",
+      },
+      {
+        name: "Chat Messages",
+        value: "2,847",
+        change: "+23%",
+        trend: "up",
+        period: "This month",
+      },
+      {
+        name: "Engagement Rate",
+        value: "87%",
+        change: "+5%",
+        trend: "up",
+        period: "This month",
+      },
+    ],
+    timeSeries: [],
+    chartData: {},
+    engagement: {
+      likes: 1250,
+      shares: 89,
+      comments: 2847,
+      donations: 45,
+      subscriptions: 23,
+      follows: 156,
+      raids: 12,
+    },
+    demographics: {
+      ageGroups: {
+        "13-17": 15,
+        "18-24": 45,
+        "25-34": 30,
+        "35-44": 8,
+        "45+": 2,
+      },
+      topCountries: [
+        { country: "Indonesia", viewers: 850, percentage: 68 },
+        { country: "Malaysia", viewers: 120, percentage: 10 },
+        { country: "Singapore", viewers: 80, percentage: 6 },
+        { country: "Philippines", viewers: 60, percentage: 5 },
+        { country: "Thailand", viewers: 40, percentage: 3 },
+      ],
+      topLanguages: [
+        { language: "Indonesian", viewers: 900, percentage: 72 },
+        { language: "English", viewers: 200, percentage: 16 },
+        { language: "Malay", viewers: 80, percentage: 6 },
+        { language: "Tagalog", viewers: 40, percentage: 3 },
+        { language: "Thai", viewers: 30, percentage: 2 },
+      ],
+    },
+    revenue: {
+      totalRevenue: 1250.5,
+      revenueBySource: {
+        donations: 800.0,
+        subscriptions: 300.0,
+        sponsorships: 100.0,
+        merchandise: 30.5,
+        other: 20.0,
+      },
+      revenueTrend: [],
+      topDonors: [
+        { username: "VIP_Viewer", amount: 100.0, count: 2 },
+        { username: "StreamFan", amount: 75.0, count: 3 },
+        { username: "GamerPro123", amount: 50.0, count: 1 },
+        { username: "ChatLover", amount: 25.0, count: 2 },
+        { username: "NewViewer", amount: 20.0, count: 1 },
+      ],
+    },
+    ai: {
+      totalResponses: 2847,
+      averageResponseTime: 2.3,
+      responseRate: 75,
+      topTopics: [
+        { topic: "Gaming", count: 1200, percentage: 42 },
+        { topic: "Streamer", count: 800, percentage: 28 },
+        { topic: "Community", count: 600, percentage: 21 },
+        { topic: "Technical", count: 200, percentage: 7 },
+        { topic: "Other", count: 47, percentage: 2 },
+      ],
+      characterPerformance: [
+        {
+          characterId: "boomi",
+          characterName: "Boomi",
+          responses: 2000,
+          averageConfidence: 0.92,
+          engagementScore: 8.5,
+        },
+        {
+          characterId: "drift",
+          characterName: "Drift",
+          responses: 847,
+          averageConfidence: 0.88,
+          engagementScore: 7.8,
+        },
+      ],
+    },
+  };
   return (
     <div className="p-6">
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center mb-2">
-          <ChartBarIcon className="w-8 h-8 text-blue-600 mr-3" />
-          <h1 className="text-3xl font-bold text-gray-900">Stream Analytics</h1>
-        </div>
-        <p className="text-gray-600">
-          Track your streaming performance and engagement metrics.
-        </p>
-      </div>
+      <PageHeader
+        icon={ChartBarIcon}
+        title="Stream Analytics"
+        description="Track your streaming performance and engagement metrics"
+      />
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -132,13 +356,10 @@ export default function AnalyticsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {/* Viewer Growth Chart */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            Viewer Growth
-          </h3>
-          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
-            <div className="text-center">
+          <div className="flex items-center space-x-3 mb-4">
+            <div className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg">
               <svg
-                className="w-16 h-16 text-gray-400 mx-auto mb-4"
+                className="w-5 h-5 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -150,21 +371,48 @@ export default function AnalyticsPage() {
                   d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
                 />
               </svg>
-              <p className="text-gray-500">Chart placeholder</p>
-              <p className="text-sm text-gray-400">Viewer growth over time</p>
             </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                Viewer Growth
+              </h3>
+              <p className="text-xs text-gray-500">
+                Track viewer growth over time
+              </p>
+            </div>
+          </div>
+          <div className="h-64 bg-gray-50 rounded-lg p-4">
+            {viewerGrowthData ? (
+              <ViewerGrowthChart data={viewerGrowthData} height="h-full" />
+            ) : (
+              <div className="h-full flex items-center justify-center">
+                <div className="text-center">
+                  <svg
+                    className="w-16 h-16 text-gray-400 mx-auto mb-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    />
+                  </svg>
+                  <p className="text-gray-500">Loading chart data...</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
         {/* AI Response Activity */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            AI Response Activity
-          </h3>
-          <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
-            <div className="text-center">
+          <div className="flex items-center space-x-3 mb-4">
+            <div className="p-2 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg">
               <svg
-                className="w-16 h-16 text-gray-400 mx-auto mb-4"
+                className="w-5 h-5 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -176,9 +424,42 @@ export default function AnalyticsPage() {
                   d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                 />
               </svg>
-              <p className="text-gray-500">Chart placeholder</p>
-              <p className="text-sm text-gray-400">AI response frequency</p>
             </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                AI Response Activity
+              </h3>
+              <p className="text-xs text-gray-500">
+                Monitor AI response frequency and patterns
+              </p>
+            </div>
+          </div>
+          <div className="h-64 bg-gray-50 rounded-lg p-4">
+            {aiResponseActivityData ? (
+              <AIResponseActivityChart
+                data={aiResponseActivityData}
+                height="h-full"
+              />
+            ) : (
+              <div className="h-full flex items-center justify-center">
+                <div className="text-center">
+                  <svg
+                    className="w-16 h-16 text-gray-400 mx-auto mb-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                    />
+                  </svg>
+                  <p className="text-gray-500">Loading chart data...</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -188,9 +469,31 @@ export default function AnalyticsPage() {
         {/* Top Performing Streams */}
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Top Performing Streams
-            </h3>
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="p-2 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg">
+                <svg
+                  className="w-5 h-5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Top Performing Streams
+                </h3>
+                <p className="text-xs text-gray-500">
+                  Your best performing streams and metrics
+                </p>
+              </div>
+            </div>
             <div className="space-y-4">
               <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center space-x-4">
@@ -294,9 +597,31 @@ export default function AnalyticsPage() {
         {/* AI Performance */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              AI Performance
-            </h3>
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="p-2 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg">
+                <svg
+                  className="w-5 h-5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  AI Performance
+                </h3>
+                <p className="text-xs text-gray-500">
+                  AI co-host performance metrics
+                </p>
+              </div>
+            </div>
             <div className="space-y-4">
               <div className="text-center p-4 bg-blue-50 rounded-lg">
                 <p className="text-2xl font-bold text-blue-600">87%</p>

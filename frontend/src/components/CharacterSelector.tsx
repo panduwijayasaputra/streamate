@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Character } from "@/lib/types";
+import { Character } from "@/types/character";
 import { characters } from "@/lib/characters";
 import CharacterAvatar from "./CharacterAvatars";
 

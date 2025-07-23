@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Character, AnimationConfig } from "@/lib/types";
+import { Character, AnimationConfig } from "@/types/character";
 
 interface CharacterAnimationProps {
   character: Character;

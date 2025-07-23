@@ -7,7 +7,7 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
-import { Character } from "./types";
+import { Character } from "@/types/character";
 import { characters, getDefaultCharacter } from "./characters";
 
 interface CharacterContextType {

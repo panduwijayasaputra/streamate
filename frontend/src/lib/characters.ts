@@ -1,4 +1,4 @@
-import { Character } from "./types";
+import { Character } from "@/types/character";
 import characterData from "./characters.json";
 
 export const characters: Character[] = characterData.characters as Character[];

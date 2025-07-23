@@ -10,7 +10,7 @@
       "spriteSheet": "/characters/boomi-sprites.png",
       "voiceType": "energetic",
       "languageStyle": "slang",
-      "responseStyle": "short",
+      "responseLength": "short",
       "emojiUsage": "heavy",
       "topics": ["hype", "chaos", "energy", "excitement", "crowd"],
       "catchphrases": [
@@ -69,7 +69,7 @@
       "spriteSheet": "/characters/drift-sprites.png",
       "voiceType": "calm",
       "languageStyle": "casual",
-      "responseStyle": "medium",
+      "responseLength": "medium",
       "emojiUsage": "minimal",
       "topics": ["chill", "ambient", "dreams", "peace", "flow"],
       "catchphrases": [
@@ -128,7 +128,7 @@
       "spriteSheet": "/characters/pip-sprites.png",
       "voiceType": "sophisticated",
       "languageStyle": "formal",
-      "responseStyle": "long",
+      "responseLength": "long",
       "emojiUsage": "moderate",
       "topics": ["analysis", "knowledge", "stats", "lore", "explanation"],
       "catchphrases": [
@@ -187,7 +187,7 @@
       "spriteSheet": "/characters/snacc-sprites.png",
       "voiceType": "calm",
       "languageStyle": "slang",
-      "responseStyle": "short",
+      "responseLength": "short",
       "emojiUsage": "moderate",
       "topics": ["roasting", "banter", "trolls", "edgy", "tricks"],
       "catchphrases": [
@@ -246,7 +246,7 @@
       "spriteSheet": "/characters/bloop-sprites.png",
       "voiceType": "cute",
       "languageStyle": "casual",
-      "responseStyle": "short",
+      "responseLength": "short",
       "emojiUsage": "heavy",
       "topics": ["love", "affection", "welcome", "emotions", "cuteness"],
       "catchphrases": [
@@ -305,7 +305,7 @@
       "spriteSheet": "/characters/patch-sprites.png",
       "voiceType": "sophisticated",
       "languageStyle": "casual",
-      "responseStyle": "medium",
+      "responseLength": "medium",
       "emojiUsage": "moderate",
       "topics": ["glitches", "meta", "humor", "quirky", "tech"],
       "catchphrases": [
@@ -364,7 +364,7 @@
       "spriteSheet": "/characters/frosty-sprites.png",
       "voiceType": "calm",
       "languageStyle": "casual",
-      "responseStyle": "short",
+      "responseLength": "short",
       "emojiUsage": "minimal",
       "topics": ["cool", "dry humor", "calm", "ice", "chill"],
       "catchphrases": [
@@ -423,7 +423,7 @@
       "spriteSheet": "/characters/spark-sprites.png",
       "voiceType": "energetic",
       "languageStyle": "slang",
-      "responseStyle": "short",
+      "responseLength": "short",
       "emojiUsage": "heavy",
       "topics": ["fire", "energy", "fast", "hyper", "excitement"],
       "catchphrases": [
@@ -482,7 +482,7 @@
       "spriteSheet": "/characters/tako-sprites.png",
       "voiceType": "cute",
       "languageStyle": "casual",
-      "responseStyle": "short",
+      "responseLength": "short",
       "emojiUsage": "heavy",
       "topics": ["wholesome", "chaos", "emotions", "reactions", "fun"],
       "catchphrases": [
@@ -541,7 +541,7 @@
       "spriteSheet": "/characters/melo-sprites.png",
       "voiceType": "cheerful",
       "languageStyle": "casual",
-      "responseStyle": "medium",
+      "responseLength": "medium",
       "emojiUsage": "heavy",
       "topics": ["emotions", "empathy", "reactions", "mood", "feelings"],
       "catchphrases": [

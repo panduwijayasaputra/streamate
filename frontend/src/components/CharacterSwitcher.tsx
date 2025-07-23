@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useCharacterSwitch } from "@/lib/characterContext";
 import { characters } from "@/lib/characters";
-import { Character } from "@/lib/types";
+import { Character } from "@/types/character";
 
 interface CharacterSwitcherProps {
   className?: string;

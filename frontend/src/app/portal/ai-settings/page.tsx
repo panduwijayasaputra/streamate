@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { CharacterProvider, useCharacter } from "@/lib/characterContext";
 import CharacterSelector from "@/components/CharacterSelector";
+import { PageHeader } from "@/components/shared/PageHeader";
 import CharacterAvatar from "@/components/CharacterAvatars";
-import { Character } from "@/lib/types";
+import { Character } from "@/types/character";
 import {
   Cog6ToothIcon,
   UserIcon,
@@ -186,18 +187,11 @@ function AISettingsContent() {
 
   return (
     <div className="p-6">
-      {/* Header Section */}
-      <div className="mb-8">
-        <div className="flex items-center mb-2">
-          <Cog6ToothIcon className="w-6 h-6 text-blue-600 mr-3" />
-          <h1 className="text-3xl font-bold text-gray-900">
-            AI Co-Host Settings
-          </h1>
-        </div>
-        <p className="text-gray-600">
-          Configure your AI co-host character and customize their behavior.
-        </p>
-      </div>
+      <PageHeader
+        icon={Cog6ToothIcon}
+        title="AI Co-Host Settings"
+        description="Configure your AI co-host character and customize their behavior"
+      />
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
@@ -205,13 +199,18 @@ function AISettingsContent() {
         <div className="xl:col-span-2 space-y-8">
           {/* Character Selection Card */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 p-8 backdrop-blur-sm">
-            <div className="flex items-center mb-6">
-              <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mr-3">
-                <UserIcon className="w-3 h-3 text-white" />
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="p-2 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg">
+                <UserIcon className="w-5 h-5 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">
-                Choose Your AI Co-Host
-              </h2>
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+                  Choose Your AI Co-Host
+                </h2>
+                <p className="text-xs text-gray-500">
+                  Select and customize your AI co-host character
+                </p>
+              </div>
             </div>
             <CharacterSelector
               selectedCharacterId={selectedCharacter.id}
@@ -229,29 +228,39 @@ function AISettingsContent() {
         {/* Right Column - Character Preview and Chat Bubble */}
         <div className="xl:col-span-1">
           {/* Combined Sticky Section */}
-          <div className="bg-gray-50 rounded-2xl px-4 backdrop-blur-sm sticky top-20">
+          <div className="bg-gray-50 rounded-2xl px-4 backdrop-blur-sm sticky top-24">
             {/* Panel 1: Selected Character Display */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200/60 p-6 mb-4">
-              <div className="flex items-center mb-6">
-                <div className="w-6 h-6 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-3">
-                  <EyeIcon className="w-3 h-3 text-white" />
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="p-2 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg">
+                  <EyeIcon className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800">
-                  Selected Character
-                </h3>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    Selected Character
+                  </h3>
+                  <p className="text-xs text-gray-500">
+                    Preview your selected AI co-host
+                  </p>
+                </div>
               </div>
               <SelectedCharacterDisplay />
             </div>
 
             {/* Panel 2: Chat Bubble Preview */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200/60 p-6">
-              <div className="flex items-center mb-6">
-                <div className="w-6 h-6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center mr-3">
-                  <ChatBubbleLeftRightIcon className="w-3 h-3 text-white" />
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg">
+                  <ChatBubbleLeftRightIcon className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800">
-                  Chat Bubble Preview
-                </h3>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    Chat Bubble Preview
+                  </h3>
+                  <p className="text-xs text-gray-500">
+                    See how your chat bubbles will look
+                  </p>
+                </div>
               </div>
               <ChatBubblePreview />
             </div>
@@ -274,13 +283,18 @@ function CharacterConfiguration() {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 p-8 backdrop-blur-sm">
-      <div className="flex items-center mb-8">
-        <div className="w-6 h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center mr-4">
-          <AdjustmentsHorizontalIcon className="w-3 h-3 text-white" />
+      <div className="flex items-center space-x-3 mb-4">
+        <div className="p-2 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg">
+          <AdjustmentsHorizontalIcon className="w-5 h-5 text-white" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900">
-          Character Configuration
-        </h2>
+        <div>
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+            Character Configuration
+          </h2>
+          <p className="text-xs text-gray-500">
+            Configure AI co-host behavior and settings
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -559,13 +573,18 @@ function BubbleChatCustomization() {
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200/60 p-6 backdrop-blur-sm">
-      <div className="flex items-center mb-6">
-        <div className="w-6 h-6 bg-gradient-to-r from-pink-500 to-rose-500 rounded-lg flex items-center justify-center mr-3">
-          <ChatBubbleLeftRightIcon className="w-3 h-3 text-white" />
+      <div className="flex items-center space-x-3 mb-4">
+        <div className="p-2 bg-gradient-to-br from-pink-500 to-rose-600 rounded-lg">
+          <ChatBubbleLeftRightIcon className="w-5 h-5 text-white" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900">
-          Bubble Chat Customization
-        </h2>
+        <div>
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">
+            Bubble Chat Customization
+          </h2>
+          <p className="text-xs text-gray-500">
+            Customize the appearance of chat bubbles
+          </p>
+        </div>
       </div>
 
       <div className="space-y-6">

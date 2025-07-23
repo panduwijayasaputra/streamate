@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { BubbleStyle } from "@/lib/types";
+import { BubbleStyle } from "@/types/character";
 
 interface BubbleCustomizerProps {
   bubbleStyle: BubbleStyle;
